@@ -1,0 +1,163 @@
+
+#!/bin/bash
+
+# Your personal command memory system
+# Just saves and reveals commands - no execution
+
+FORGOT_FILE="$HOME/.forgot_commands"
+
+# Create file if it doesn't exist
+touch "$FORGOT_FILE"
+
+# Function: Save a command
+save_command() {
+    # Parse: forgot append update : sudo apt update
+    local keyword="$2"
+    shift 3  # Skip "append", "keyword", ":"
+    local command="$*"
+    
+    # Check if keyword exists
+    if grep -q "^$keyword:" "$FORGOT_FILE"; then
+        echo "⚠️  Command '$keyword' already exists. Overwrite? (y/n)"
+        read -r response
+        if [[ "$response" =~ ^[Yy]$ ]]; then
+            sed -i.bak "/^$keyword:/d" "$FORGOT_FILE"
+        else
+            echo "❌ Cancelled"
+            return 1
+        fi
+    fi
+    
+    # Save the command
+    echo "$keyword:$command" >> "$FORGOT_FILE"
+    echo "Command Saved"
+}
+
+# Function: Reveal a command
+reveal_command() {
+    local keyword="$1"
+    local result=$(grep "^$keyword:" "$FORGOT_FILE" | head -1)
+    
+    if [ -z "$result" ]; then
+        echo "❌ No command found for '$keyword'"
+        echo "💡 Try: forgot list"
+        return 1
+    fi
+    
+    # Extract and show just the command
+    local command=$(echo "$result" | cut -d':' -f2-)
+    echo "$command"
+}
+
+# Function: List all commands
+list_commands() {
+    if [ ! -s "$FORGOT_FILE" ]; then
+        echo "📭 No commands saved yet"
+        echo "Try: forgot append <keyword> : <command>"
+        return 0
+    fi
+    
+    echo "📋 Your saved commands:"
+    echo "─────────────────────"
+    while IFS=':' read -r keyword command; do
+        printf "  %-15s → %s\n" "$keyword" "$command"
+    done < "$FORGOT_FILE"
+}
+
+# Function: Search commands
+search_commands() {
+    local search_term="$1"
+    local results=$(grep -i "$search_term" "$FORGOT_FILE")
+    
+    if [ -z "$results" ]; then
+        echo "🔍 No commands found matching '$search_term'"
+        return 0
+    fi
+    
+    echo "🔍 Results for '$search_term':"
+    echo "─────────────────────────────"
+    while IFS=':' read -r keyword command; do
+        printf "  %-15s → %s\n" "$keyword" "$command"
+    done <<< "$results"
+}
+
+# Function: Delete a command
+delete_command() {
+    local keyword="$1"
+    
+    if ! grep -q "^$keyword:" "$FORGOT_FILE"; then
+        echo "❌ No command found for '$keyword'"
+        return 1
+    fi
+    
+    echo "🗑️  Delete '$keyword'? (y/n)"
+    read -r response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        sed -i.bak "/^$keyword:/d" "$FORGOT_FILE"
+        echo "✅ Deleted '$keyword'"
+    else
+        echo "❌ Cancelled"
+    fi
+}
+
+# Function: Show help
+show_help() {
+    echo "📖 forgot - Your personal command memory"
+    echo ""
+    echo "Usage:"
+    echo "  forgot append <keyword> : <command>   Save a command"
+    echo "  forgot <keyword>                      Reveal a saved command"
+    echo "  forgot list                          List all saved commands"
+    echo "  forgot search <term>                 Search commands"
+    echo "  forgot delete <keyword>              Delete a command"
+    echo "  forgot help                         Show this help"
+    echo ""
+    echo "Examples:"
+    echo "  forgot append update : sudo apt update"
+    echo "  forgot update          # Shows: sudo apt update"
+    echo "  forgot list            # Shows all saved commands"
+}
+
+# Main logic
+main() {
+    case "$1" in
+        append)
+            if [ $# -lt 4 ] || [ "$3" != ":" ]; then
+                echo "❌ Usage: forgot append <keyword> : <command>"
+                echo "Example: forgot append update : sudo apt update"
+                return 1
+            fi
+            save_command "$@"
+            ;;
+        list|ls)
+            list_commands
+            ;;
+        search)
+            if [ $# -ne 2 ]; then
+                echo "❌ Usage: forgot search <term>"
+                return 1
+            fi
+            search_commands "$2"
+            ;;
+        delete|rm)
+            if [ $# -ne 2 ]; then
+                echo "❌ Usage: forgot delete <keyword>"
+                return 1
+            fi
+            delete_command "$2"
+            ;;
+        help|--help|-h)
+            show_help
+            ;;
+        *)
+            if [ $# -eq 1 ]; then
+                reveal_command "$1"
+            else
+                show_help
+            fi
+            ;;
+    esac
+}
+
+# Run the script
+main "$@"

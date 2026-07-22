@@ -1,0 +1,290 @@
+https://linuxsecurity.expert/security-tools/domain-reconnaissance-tools
+
+
+# Passive & Active 
+
+Passive reconnaissance this is where you gather information about a target without directly interacting with its internal systems, relying instead on publicly available data like search results, social media, or domain registration details. Active reconnaissance, on the other hand, involves direct interaction with the target systems, which means your activities might be detected; examples include port scanning or network mapping.
+
+
+# Passive Methodology 
+
+
+Whois lookup to gather administrative and registration details for the target domain.
+
+​Next, use NS lookup and dig to query for specific DNS records and map out the DNS infrastructure.
+
+​Follow this by running subdomain discovery tools like Amass and Subfinder to find all associated subdomains.
+
+​Then, utilize DNS Dumpster to visualize the DNS structure and identify any potential misconfigurations or further subdomains.
+
+​After that, turn to Shodan and Censys to gather information on open ports, services, and SSL certificates associated with the discovered endpoints.
+
+​Finish up by using Wappalyzer to identify the specific technologies and framework running on the web applications.
+
+
+
+
+-------------------------------------------------------------------------------
+
+# Directory enumeration?
+Directory enumeration is a technique used to find hidden directories and files on a web server that aren't directly linked or visible to everyday users.
+
+​It primarily works by using brute-force and educated guessing. You supply the tool with a wordlist containing common names for directories and files, and the tool automatically sends thousands of HTTP requests to the server, checking if each path exists.
+
+​The tool analyzes the responses, looking for status codes like 200 OK, which indicates the file or directory is present, or 404 Not Found, meaning it doesn't. This helps to map out the application's layout and can reveal sensitive files that shouldn't be publicly accessible.
+
+
+# Directory Enumeration Methodology
+
+       
+​1. Scope Definition & Initial Target Identification
+​Action: Define strict boundaries (IPs, subdomains, URLs) and review authorization constraints before launching any scans.
+
+​Reason: Active enumeration generates heavy network traffic. Defining scope upfront prevents accidental scanning of out-of-scope assets, avoiding legal issues or unwanted service disruptions.
+
+
+​2. High-Speed Surface Scanning (Gobuster / Feroxbuster)
+​Action: Execute multi-threaded brute-force scans using curated wordlists (e.g., SecLists) to uncover hidden paths and directories.
+
+​Reasoning for Tools:
+​Gobuster: Built in Go, it performs fast, parallelized HTTP request handling without the overhead of rendering pages. It is ideal for rapidly mapping out standard paths on large targets.
+​Feroxbuster: Written in Rust, it features automatic recursive scanning. When it finds a directory, it automatically starts scanning deeper into that sub-path, saving you from manually configuring secondary scans.
+
+
+​3. Misconfiguration & Asset Discovery (Open Door)
+​Action: Run targeted scans specifically aimed at detecting administrative panels, old backups, and server configuration files.
+
+​Reasoning for Tool:
+​Open Door: Unlike standard wordlist brute-forcers that rely strictly on generic directory names, Open Door uses specialized heuristics to detect specific server misconfigurations, swap files (.swp), old archives (.bak, .zip), and hidden admin interfaces that generic wordlists often miss.
+
+
+​4. Deep Manual Analysis & Request Manipulation (Burp Suite)
+​Action: Route your browser traffic through a proxy to manually interact with discovered endpoints, inspect headers, and test input handling.
+
+​Reasoning for Tool:
+​Burp Suite: Automated scanners cannot understand application logic or state. Burp Suite gives you granular control via its Proxy, Repeater, and Intruder modules to inspect raw HTTP/S requests, bypass client-side controls, and analyze how the application handles unexpected inputs in real time.
+
+
+
+# Directory Enumeration Expected findings
+
+expect to find things like administrative dashboards, login portals, and testing or development directories that weren't meant to be public. You might also discover sensitive configuration files, like .env or config.php, old backup archives with extensions like .bak or .zip, and even log files that could expose system information.
+
+
+
+During directory enumeration, you can expect to find backup files like .bak or .old, configuration files such as .env and config.php, log files, and database dumps. These often contain sensitive information like database credentials, API keys, or server paths.
+
+
+
+----------------------------------------------------------------------
+
+
+
+# What is DNS Enumeration?
+
+
+​DNS enumeration is the practice of querying DNS servers to gather detailed information about a target organization's domain and network infrastructure.
+
+​1. Standard Record Types
+​During initial enumeration, you query standard DNS record types to map out active services:
+- A & AAAA Records: Map hostnames to IPv4 and IPv6 addresses.
+- MX Records: Identify incoming mail servers.
+-  NS Records: Reveal the authoritative domain nameservers.
+- TXT Records: Provide administrative data, including SPF, DKIM, and DMARC configurations used to secure email delivery.
+- SOA: Primary Nameserver (MNAME): The primary master nameserver responsible for holding the original DNS data for the zone.
+
+​2. Zone Transfers (AXFR)
+​Beyond individual record queries, enumeration often involves checking for DNS Zone Transfers (AXFR).
+​A zone transfer is designed to replicate the entire DNS database between a primary nameserver and secondary nameservers.
+​If a primary nameserver is misconfigured to allow public zone transfers, an investigator can download the complete map of hostnames, internal subdomains, and IP addresses in a single request without needing to brute-force individual subdomains.
+
+​3. DNSSEC Audit
+​Enumeration also includes checking for DNSSEC (Domain Name System Security Extensions).
+​Cryptographic Signatures: DNSSEC uses digital signatures (such as RRSIG and DNSKEY records) to verify that the DNS responses received are authentic and haven't been altered during transit.
+​Security Posture: Identifying whether DNSSEC is enabled helps determine if the domain is protected against cache poisoning or spoofing attacks, or if missing signatures present a potential vulnerability in the domain's trust path.
+
+
+
+
+# DNS Enumeration Methodologies 
+
+To effectively enumerate DNS information, you can follow a structured approach starting with passive discovery and moving to active queries.
+​First, gather standard record types like A, MX, NS, and TXT records to map out active services and email security configurations.
+​Next, check the Start of Authority, or SOA, record to identify the primary nameserver and tracking details for the domain's zone.
+​After that, attempt to perform a zone transfer to see if the entire DNS database is publicly accessible due to misconfiguration.
+​Finally, audit the domain for DNSSEC to verify if cryptographic signatures are in place to ensure the authenticity and integrity of DNS responses
+
+ start with publicly available information like whois lookup, dns dumbster, censys then move to built-in command-line tools like nslookup or dig for basic queries to gather standard records.
+For a more automated, comprehensive approach, tools like dnsrecon, subfinder, or amass are excellent for discovering subdomains and checking for zone transfers.
+Always begin with passive information gathering before moving on to more direct active techniques.
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+# Subdomain Enumeration 
+
+Subdomain enumeration is the process of identifying valid subdomains for a specific domain.
+
+Its purpose is to reveal additional entry points that can expand the attack surface or help find forgotten or development services.
+Popular tools include Subfinder, Amass, and Assetfinder.
+
+The general methodology involves starting with passive methods such as searching public datasets, search engines, and certificate transparency logs, followed by active techniques like brute-forcing to discover any hidden subdomains.
+.
+
+-------------------------------------------------------------------------------------
+
+
+# Crawling
+
+Crawling, or spidering, is the automated process of systematically navigating a website to map out its structure, pages, and links, helping you understand the site's topography.
+
+Crawling works by starting with a list of initial web pages and then systematically following the hyperlinks on those pages to discover new content. The crawler processes each page, extracts the links it finds, and adds them to a queue to be visited later. This process continues recursively, allowing the crawler to map out the structure of a website and index its pages.
+
+Directory enumeration uses a list of potential names to guess and find paths, while crawling systematically follows existing links and resources on the pages you visit to map out the application's structure.
+
+
+
+
+
+
+Reconnaissance
+│
+├── Domain Reconnaissance
+│   ├── WHOIS / Registrar Information
+│   ├── DNS Enumeration
+│   │   ├── A Records
+│   │   ├── MX Records
+│   │   ├── NS Records
+│   │   ├── TXT Records
+│   │   └── SOA Records
+│   ├── Subdomain Enumeration
+│   ├── Reverse DNS Lookup
+│   ├── IP Address Enumeration
+│   ├── ASN & Network Range Enumeration
+│   ├── SSL/TLS Certificate Enumeration
+│   ├── Technology Stack Identification
+│   ├── Email Enumeration
+│   ├── Search Engine Enumeration (Google Dorking)
+│   └── Passive OSINT Gathering
+│
+└── Website Reconnaissance
+    ├── Crawling
+    ├── Directory Enumeration
+    ├── File Enumeration
+    ├── Parameter Enumeration
+    ├── Endpoint Enumeration
+    ├── Hidden Page Discovery
+    ├── Robots.txt Analysis
+    ├── Sitemap.xml Analysis
+    ├── JavaScript Analysis
+    ├── Technology Fingerprinting
+    ├── HTTP Header Analysis
+    ├── Form Analysis
+    ├── Authentication Page Discovery
+    └── API Endpoint Discovery
+
+# White-box,Black-box testing
+White-box testing involves having full knowledge of the system's inner workings, including the source code and architecture, to examine how it's constructed.
+​Black-box testing, on the other hand, tests the application from the outside without knowing anything about its internal code or implementation.
+
+
+# mapingApplication mapping involves creating a structural overview of a system to understand its components and relationships.
+​Endpoint mapping focuses on identifying the specific URLs or API routes within an application.
+​Parameter mapping identifies the various input fields, headers, or cookies that the application accepts for processing.
+Application mapping involves creating a structural overview of a system to understand its components and relationships.
+
+---------------------------------------------------------------------------------
+
+# Tools
+
+
+Dig is a powerful command-line tool that provides detailed, raw information about DNS records.
+​Nslookup is a simpler utility used for querying DNS to get IP addresses or domain names.
+​DNSdumpster is a web-based research tool that helps you visualize DNS information and discover hidden subdomains.
+
+
+
+Censys is a search engine for internet-connected devices. It continuously scans the internet to discover everything online, collecting data on servers, devices, and their configurations, which helps with security assessments and monitoring infrastructure.
+
+
+Shodan is a search engine that lets users find specific types of computers connected to the internet by using filters. It collects data like banners from servers, which often reveal the software version or configuration, open ports, geographical location, and the type of service running on the device.
+
+
+
+Censys and Shodan are both search engines for internet-connected devices, but they have different approaches.
+​Censys is particularly known for its strong infrastructure data and deep analysis of SSL and TLS certificates, allowing you to see exactly what cryptographic services are deployed across a network.
+​Shodan, on the other hand, focuses on grabbing banners from devices to identify protocols, versions, and vulnerabilities, providing a broader but very quick view of what's publicly exposed online.
+
+
+
+
+Dirb is a command-line tool that brute-forces directories and files by sending a dictionary of common names to a web server and analyzing the responses, which makes it lightweight and simple to use.
+​DirBuster is a Java-based application with a graphical interface that also uses brute force and wordlists, and it's advantageous because it can sometimes generate its own list based on the content it finds.
+​Burp Suite is a comprehensive platform for web security testing where the Intruder module is commonly used to enumerate directories, providing incredible versatility for manual manipulation and customization.
+​Open Door is an open-source tool focused on speed and evasion, designed to bypass certain security controls and WAFs to uncover hidden paths.
+
+
+
+
+OWASP ZAP is an automated scanner designed for finding vulnerabilities in web applications, making it excellent for both beginners and experienced testers looking for quick, broad security checks.
+​Burp Suite is the industry standard for web security testing, offering a comprehensive platform with modules like Intruder and Repeater that allow for granular manual analysis, customization, and manipulation of traffic.
+​HTTrack is a specialized tool for offline browsing, allowing you to download entire websites to your local drive for secure offline analysis or archiving without needing to be connected to the live server.
+
+
+
+Nikto is an open-source command-line tool that scans web servers for dangerous files and outdated software versions, and it identifies various configuration issues.
+​OpenVAS is a comprehensive vulnerability scanning framework suitable for large-scale network infrastructure assessments.
+​Vega is an open-source web security scanner and testing platform that includes a graphical user interface and helps identify vulnerabilities like SQL injection and cross-site scripting.
+​Acunetix is a powerful commercial scanner that excels at deep crawling and detecting complex flaws in modern web applications.
+​Wapiti is a command-line tool for black-box scanning, injecting payloads into inputs to test for security bugs.
+
+
+
+
+
+
+SQLMap is for automating the detection and exploitation of SQL injection flaws in a database, while XSSER is specifically designed for finding and demonstrating cross-site scripting vulnerabilities in web applications.
+
+
+
+
+SQLMap works by identifying SQL injection vulnerabilities in parameters, sending specific test payloads, and analyzing the HTTP responses to extract data.
+
+​XSSER operates by injecting various XSS payloads into input fields and URL parameters, checking if the browser executes the injected code to detect cross-site scripting vulnerabilities.
+
+
+
+
+
+Crawling helps you discover all the pages, directories, and links within a target website. This builds a complete map of the site, which is essential for finding the attack surface and locating potential entry points for further testing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

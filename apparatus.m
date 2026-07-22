@@ -1,4 +1,5 @@
-
+# BloodHound 
+BloodHound is a cybersecurity tool that maps a company's network as a visual graph to reveal hidden pathways a hacker could take to gain administrative control. It works by converting complex network permissions into nodes and edges, then executing graph traversal algorithms—like Breadth-First Search (BFS) and Dijkstra's Algorithm to calculate the shortest attack route, Depth-First Search (DFS) to resolve nested group permissions, and Community Detection to identify critical choke points—allowing security teams to locate and close those secret vulnerabilities before attackers can exploit them.
 
 
 # webhook

@@ -12,3 +12,9 @@ Copy and paste the prompt below into your AI assistant:
 Objective: Improve communication, interview skills, and confidence.
 
 "Act as a professional HR interviewer for my dream job. Ask me 10 interview questions one at a time. After each answer, evaluate my response based on clarity, confidence, grammar, and content. Suggest an improved answer and explain how I can make it more impactful. At the end, give me an overall score out of 10 and three key areas I should improve."
+
+
+
+
+## AI Job Interview (30 minutes)
+Act as an experienced HR interviewer for the role of CyberSecurity. Ask me one interview question at a time and wait for my response before asking the next question. After 8 questions, evaluate my communication skills, confidence, vocabulary, grammar, clarity, professionalism, and suggest how I can improve for a real interview.

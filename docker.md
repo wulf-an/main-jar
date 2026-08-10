@@ -66,11 +66,7 @@ Instead of manually downloading and configuring application code and dependencie
 3. **Docker Run:** Instantiates the image into an active, running **Docker Container**.
 
 
--
 
--
-
--
 
 
 ### How to Stop the Docker Background Engine

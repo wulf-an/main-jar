@@ -29,10 +29,9 @@ A tmpfs mount does not write data to the host machine's persistent disk storage 
 | **Data Persistence** | Persists on host when container is deleted | Persists safely across container lifecycles | Erased immediately when container stops |
 | **Primary Use Case** | Sharing source code & configuration files | Persistent databases & application state | Sensitive, ephemeral data & caching |
 
--
--
--
-##Understanding Docker Images, Pull, and Containers
+
+##Understanding Docker Images, Pull, and Containers.
+
 
 Instead of manually downloading and configuring application code and dependencies from scratch, Docker utilizes pre-packaged, ready-to-run environments. This approach ensures consistency across different environments, from development to production.
 

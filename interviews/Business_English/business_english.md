@@ -13,13 +13,14 @@ Why Is Business English Important?
 3. Listening Skills: Understanding accents, tones, and professional vocabulary during meetings or calls.
 4. Vocabulary: Using business-related terms like “stakeholders,” “KPIs,” and “synergy” effectively.
 5. Cultural Sensitivity: Adapting language to respect different professional cultures and norms.
-
+   
 
 ## Practical Applications
-● Interviews: Crafting responses to questions using professional terms and correct grammar.
-● Emails: Writing subject lines and concise emails to ensure clarity and action.
-● Meetings: Taking notes, presenting ideas, and responding effectively to queries.
-● Negotiations: Persuading and influencing others using tactful language.
+
+- **Interviews:** Crafting responses to questions using professional terms and correct grammar.
+- **Emails:** Writing subject lines and concise emails to ensure clarity and action.
+- **Meetings:** Taking notes, presenting ideas, and responding effectively to queries.
+- **Negotiations:** Persuading and influencing others using tactful language.
 
 
 ##  Conclusion
@@ -28,27 +29,27 @@ Business English bridges the gap between basic English knowledge and workplace e
 
 
 
-# Initialisms and acronyms used in office work
+# Initialisms and Acronyms Used in Office Work
 
-♦️EOM: End of message
-♦️EOW: End of week
-♦️EOT: End of thread
-♦️COB: Close of business
-♦️OOO: Out of office
-♦️RSVP: Please respond
-♦️N/A: Not applicable
-♦️TBD: To be decided
-♦️AWOL: Absent without leave
-♦️ETA: Estimated time of arrival
-♦️PTO: Paid time off
-♦️FTE: Full-time employee
-♦️POC: Point of contact
-♦️MTD: Month to date
-♦️NRN: No reply necessary
-♦️IAM: In a meeting
-♦️PA: Performance appraisal
-♦️RFD: Request for discussion
-♦️ASAP: As soon as possible
-♦️BRB: Be right back
-♦️KISS: Keep it simple stupid
-♦️TLDR: Too long, didn't read
+- **EOM:** End of message
+- **EOW:** End of week
+- **EOT:** End of thread
+- **COB:** Close of business
+- **OOO:** Out of office
+- **RSVP:** Please respond
+- **N/A:** Not applicable
+- **TBD:** To be decided
+- **AWOL:** Absent without leave
+- **ETA:** Estimated time of arrival
+- **PTO:** Paid time off
+- **FTE:** Full-time employee
+- **POC:** Point of contact
+- **MTD:** Month to date
+- **NRN:** No reply necessary
+- **IAM:** In a meeting
+- **PA:** Performance appraisal
+- **RFD:** Request for discussion
+- **ASAP:** As soon as possible
+- **BRB:** Be right back
+- **KISS:** Keep it simple, stupid
+- **TLDR:** Too long, didn't read

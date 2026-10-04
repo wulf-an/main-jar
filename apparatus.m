@@ -9,6 +9,7 @@ webhook.site
 create diagram
 
 # Online-Hosted Vulnerable Environments
+http://zero.webappsecurity.com/
 https://ginandjuice.shop/
 https://duck-store.escape.tech/
 https://dvaib.com/

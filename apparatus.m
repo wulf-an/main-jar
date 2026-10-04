@@ -16,6 +16,8 @@ https://dvaib.com/
 https://pentest-ground.com/
 http://testasp.vulnweb.com/Login.asp
 
+## kali linux
+- web shell
 
 
 

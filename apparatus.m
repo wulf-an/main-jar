@@ -20,9 +20,13 @@ http://testasp.vulnweb.com/Login.asp
 - web shell
 
 ## OWASP
-Web Security Testing Guide (WSTG)   -  https://owasp.org/projects/web-security-testing-guide
+Web Security Testing Guide (WSTG)   - 
+https://owasp.org/projects/web-security-testing-guide
 Mobile Security Testing Guide (MSTG)  - 
-Firmware Security Testing Methodology (FSTG) - https://github.com/scriptingxss/owasp-fstm
+https://github.com/OWASP/mastg/
+https://mas.owasp.org/MASTG/techniques/#
+Firmware Security Testing Methodology (FSTG) -
+https://github.com/scriptingxss/owasp-fstm
 
 
 

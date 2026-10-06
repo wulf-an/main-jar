@@ -9,6 +9,7 @@ webhook.site
 create diagram
 
 # Online-Hosted Vulnerable Environments
+https://medium.com/@kshahabaj528/top-vulnerable-machines-for-penetration-testing-practice-8154318c40c3
 http://zero.webappsecurity.com/
 https://ginandjuice.shop/
 https://duck-store.escape.tech/

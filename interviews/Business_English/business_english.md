@@ -53,3 +53,20 @@ Business English bridges the gap between basic English knowledge and workplace e
 - **BRB:** Be right back
 - **KISS:** Keep it simple, stupid
 - **TLDR:** Too long, didn't read
+
+
+
+
+## Phrases to Learn
+
+Alternatives you can use instead of saying "I need help" depending on the context and the level of urgency. Here are some options:
+● "Could you assist me, please?"
+● "I require some assistance."
+● "I'm in need of support."
+● "Can someone lend me a hand?"
+● "I'm looking for guidance on this matter."
+● "Could someone offer me some help?"
+● "I could really use some help right now."
+● "I'm facing a challenge and could use some assistance."
+● "Is there anyone who can help me out?"
+● "I'm struggling with this, could you give me a hand?"

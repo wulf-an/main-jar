@@ -44,6 +44,9 @@ Firmware Security Testing Methodology (FSTG) -
 https://github.com/scriptingxss/owasp-fstm
 
 
+## JWT Debugger :
+jwt.io
+
 
 #httpx 
 httpx -l unique_subs.txt -o live_hosts.txt

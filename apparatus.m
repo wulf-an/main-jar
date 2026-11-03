@@ -4,6 +4,13 @@ BloodHound is a cybersecurity tool that maps a company's network as a visual gra
 # Realtime HTML edit:
 https://htmledit.squarefree.com/
 
+
+## Linkedin Post formatter:
+https://linkedin-formatter.ibean.co/app
+
+
+
+
 Challanges:
 https://instafluff.github.io/DetectivePawsome/?_ifl_migration=20260809
 https://www.root-me.org/en/Challenges/Web-Client/Javascript-Webpack#ancre_solution
